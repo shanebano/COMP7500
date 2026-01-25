@@ -6,7 +6,7 @@ CFLAGS = -Wall -Wextra -std=c99 -pedantic
 TARGET = pwordcount
 SOURCES = pwordcount.c file_operations.c process_communication.c word_count.c
 OBJECTS = $(SOURCES:.c=.o)
-HEADERS = file_operations.h process_communication.h
+HEADERS = file_operations.h process_communication.h word_count.h
 
 all: $(TARGET)
 
@@ -25,7 +25,7 @@ test: $(TARGET)
 	@./$(TARGET) || true
 	@echo ""
 	@echo "Test 2: Sample file with words"
-	@./$(TARGET) sample_input.txt || true
+	@./$(TARGET) sample_file.txt || true
 	@echo ""
 	@echo "Test 3: Empty file"
 	@./$(TARGET) empty.txt || true

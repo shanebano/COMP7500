@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "word_count.h"
 
 // Function to count words in the file
 int word_count(FILE *file);
@@ -18,15 +19,15 @@ int main(int argc, char *argv[]) {
     }
 
     // Count words in the given file
-    int word_count = count_words(file);
+    int total_words = word_count(file);
     fclose(file);
     // Check for errors during word counting
-    if (word_count < 0) {
+    if (total_words < 0) {
         fprintf(stderr, "Error: Failed to read the file '%s'.\n", argv[1]);
         return EXIT_FAILURE;
     }
 
     // Print the word count result
-    printf("Process %s: The total number of words is %d.\n", argv[1], word_count);
+    printf("Process %s: The total number of words is %d.\n", argv[1], total_words);
     return EXIT_SUCCESS;
 }

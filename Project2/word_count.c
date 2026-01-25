@@ -7,7 +7,7 @@
 
 #define MAX_BUFFER 1024 // Maximum buffer size for reading input 
 
-int word_count{
+int word_count() {
     char buffer[MAX_BUFFER];
     int count = 0;
     int in_word = 0;

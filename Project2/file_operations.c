@@ -18,6 +18,7 @@ Function to read file contents and return as a string for further processing.
 
 #define MAX_FILE_SIZE 1048576 // 1 MB
 int read_file(const char *filename, char **content) { // take filename and pointer to content 
+     FILE *file = fopen(filename, "r"); // declare file pointer and open file in read mode
      if (file == NULL) {
         perror("Error opening file"); // print error message
         return -1;
