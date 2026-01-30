@@ -1,8 +1,6 @@
-// filepath: /root/COMP7500/Project2/word_count.h
 #ifndef WORD_COUNT_H
 #define WORD_COUNT_H
-#include <stdio.h>
 
-int word_count(FILE *file);
+int word_count(const char *data); // Function prototype for word_count
 
-#endif // WORD_COUNT_H
+#endif

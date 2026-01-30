@@ -24,11 +24,28 @@ test: $(TARGET)
 	@echo "Test 1: No arguments (should show usage)"
 	@./$(TARGET) || true
 	@echo ""
-	@echo "Test 2: Sample file with words"
+	@echo "Test 1 is a Success"
+	@echo ""
+	@echo "Test 2: File Doesnt Exist"
+	@./$(TARGET) simple_file.txt || true
+	@echo ""
+	@echo "Test 2 is a Success"
+	@echo ""
+	@echo "Test 3: Sample file with words"
 	@./$(TARGET) sample_file.txt || true
 	@echo ""
-	@echo "Test 3: Empty file"
+	@echo "Test 3 is a Success"
+	@echo ""
+	@echo "Test 4: Empty file"
 	@./$(TARGET) empty.txt || true
+	@echo ""
+	@echo "Test 4 is a Success"
+	@echo ""
+	@echo "Test 5: Large File"
+	@./$(TARGET) 64kb_test.txt || true
+	@echo ""
+	@echo "Test 5 is a Success"
+	@echo ""
 
 
 .PHONY: all clean test
