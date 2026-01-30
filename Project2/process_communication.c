@@ -3,12 +3,14 @@
 #include <unistd.h>
 #include <string.h>
 #include <sys/types.h>
-#include <sys/wait.h> 
-#include "process_communication.h" // Include the header file
+#include <sys/wait.h>
+#include "process_communication.h"
 
 #define BUFFER_SIZE 1024
 
 void process_communication() {
+    printf("(process_communications.c) Process 1 starts sending data to Process 2 ...\n");
+
     int pipe_fd[2];
     pid_t pid;
     char write_msg[] = "Message from parent to child";
@@ -28,6 +30,7 @@ void process_communication() {
     }
 
     if (pid == 0) { // Child process
+        printf("(process_communications.c) Process 2 finishes receiving data from Process 1 ...\n");
         close(pipe_fd[1]); // Close unused write end
 
         // Read from the pipe
@@ -37,9 +40,8 @@ void process_communication() {
             exit(EXIT_FAILURE);
         }
 
-        printf("Child received: %s\n", read_msg);
-
         close(pipe_fd[0]); // Close read end
+        exit(EXIT_SUCCESS);
     } else { // Parent process
         close(pipe_fd[0]); // Close unused read end
 
