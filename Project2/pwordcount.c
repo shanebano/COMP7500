@@ -11,7 +11,7 @@ int main(int argc, char *argv[]) {
     }
 
     // Print the first message
-    printf("(pwordcount.c) Process 1 is reading file \"%s\" now ...\n", argv[1]);
+    printf("(pwordcount.c): Process 1 is reading file \"%s\" now ...\n", argv[1]);
 
     // Open the specified file
     FILE *file = fopen(argv[1], "r");
@@ -34,7 +34,7 @@ int main(int argc, char *argv[]) {
     }
 
     // Print the final word count result
-    printf("(pwordcount.c) Process 1: The total number of words is %d.\n", total_words);
+    printf("(pwordcount.c): Process 1: The total number of words is %d.\n", total_words);
 
     return EXIT_SUCCESS;
 }

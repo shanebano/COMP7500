@@ -9,7 +9,7 @@
 #define BUFFER_SIZE 1024
 
 void process_communication() {
-    printf("(process_communications.c) Process 1 starts sending data to Process 2 ...\n");
+    printf("(process_communications.c): Process 1 starts sending data to Process 2 ...\n");
 
     int pipe_fd[2];
     pid_t pid;
@@ -30,7 +30,7 @@ void process_communication() {
     }
 
     if (pid == 0) { // Child process
-        printf("(process_communications.c) Process 2 finishes receiving data from Process 1 ...\n");
+        printf("(process_communications.c): Process 2 finishes receiving data from Process 1 ...\n");
         close(pipe_fd[1]); // Close unused write end
 
         // Read from the pipe

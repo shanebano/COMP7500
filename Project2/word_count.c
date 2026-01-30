@@ -5,7 +5,7 @@
 #define MAX_BUFFER 1024 // Maximum buffer size for reading input 
 
 int word_count(FILE *file) { // Accept FILE * parameter
-    printf("(word_count.c) Process 2 is counting words now ...\n");
+    printf("(word_count.c): Process 2 is counting words now ...\n");
 
     char buffer[MAX_BUFFER];
     int count = 0;
@@ -23,7 +23,7 @@ int word_count(FILE *file) { // Accept FILE * parameter
         }
     }
 
-    printf("(word_count.c) Process 2 has finished counting words.\n");
+    printf("(word_count.c): Process 2 has finished counting words.\n");
 
     return count; // Return the total word count
 }
