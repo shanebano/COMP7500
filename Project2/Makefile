@@ -4,9 +4,9 @@
 CC = gcc
 CFLAGS = -Wall -Wextra -std=c99 -pedantic
 TARGET = pwordcount
-SOURCES = pwordcount.c file_operations.c process_communication.c word_count.c
+SOURCES = pwordcount.c process_communication.c word_count.c
 OBJECTS = $(SOURCES:.c=.o)
-HEADERS = file_operations.h process_communication.h word_count.h
+HEADERS = process_communication.h word_count.h
 
 all: $(TARGET)
 
