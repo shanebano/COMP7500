@@ -3,6 +3,6 @@
 #define WORD_COUNT_H
 #include <stdio.h>
 
-int count_words(FILE *file);
+int word_count(FILE *file);
 
 #endif // WORD_COUNT_H

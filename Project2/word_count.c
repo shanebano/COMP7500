@@ -7,12 +7,12 @@
 
 #define MAX_BUFFER 1024 // Maximum buffer size for reading input 
 
-int word_count() {
+int word_count(FILE *file) {
     char buffer[MAX_BUFFER];
     int count = 0;
     int in_word = 0;
 
-    while (fgets(buffer, MAX_BUFFER, stdin) != NULL) { // Read input line by line
+    while (fgets(buffer, MAX_BUFFER, file) != NULL) { // Read input line by line
         for (size_t i = 0;i < strlen(buffer); i++) { // Iterate through each character in the buffer
             if (buffer[i] == ' ' || buffer[i] == '\n' || buffer[i] == '\t') { // Check for whitespace characters
                 in_word = 0; //not in a word
