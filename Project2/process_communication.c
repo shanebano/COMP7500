@@ -4,6 +4,7 @@
 #include <string.h>
 #include <sys/types.h>
 #include <sys/wait.h>
+#include <signal.h>
 #include "process_communication.h"
 #include "word_count.h"
 
@@ -30,7 +31,7 @@ void process_communication(const char *filename) {
 
     // Fork a child process
     pid = fork();
-    if (pid < 0) {
+    if (pid < 0) { // Fork failed
         perror("Fork failed");
         exit(EXIT_FAILURE);
     }
@@ -41,16 +42,17 @@ void process_communication(const char *filename) {
         close(pipe_fd2[0]); // Close unused read end of the second pipe
 
         // Read from the first pipe
-        ssize_t bytes_read = read(pipe_fd[0], buffer, sizeof(buffer));
+        ssize_t bytes_read = read(pipe_fd[0], buffer, sizeof(buffer)); // Read data into buffer
         if (bytes_read < 0) {
             perror("Read failed");
             exit(EXIT_FAILURE);
         }
-        close(pipe_fd[0]); // Close read end after reading
+        close(pipe_fd[0]); // Close the read end of the first pipe after reading
 
         printf("(process_communications.c): Process 2 finishes receiving data from Process 1 ...\n");
 
         // Count the words in the received message using the word_count function
+        printf("(word_count.c): Process 2 is counting words now ...\n");
         int count = word_count(buffer); // Pass the buffer directly to word_count
 
         // Write the word count result to the second pipe
@@ -74,7 +76,12 @@ void process_communication(const char *filename) {
         FILE *file = fopen(filename, "r");
         if (file == NULL) {
             fprintf(stderr, "Error: Unable to open file \"%s\".\n", filename);
-            exit(EXIT_FAILURE); // Exit the program if the file does not exist
+
+            // Kill the child process to ensure it doesn't continue running
+            kill(pid, SIGKILL);
+
+            // Exit the program with failure status
+            exit(EXIT_FAILURE);
         }
 
         // Read the file and send its content to the child process
@@ -95,7 +102,12 @@ void process_communication(const char *filename) {
         // If the file is empty, send an empty string to Process 2
         if (file_is_empty) {
             fprintf(stderr, "Error: File \"%s\" is empty.\n", filename);
-            exit(EXIT_FAILURE); // Exit the program if the file is empty
+
+            // Kill the child process to ensure it doesn't continue running
+            kill(pid, SIGKILL);
+
+            // Exit the program with failure status
+            exit(EXIT_FAILURE);
         }
 
         // Wait for the child process to finish
