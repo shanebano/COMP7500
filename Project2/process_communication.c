@@ -13,9 +13,9 @@
 void process_communication(const char *filename) {
     int pipe_fd[2];   // First pipe: Process 1 -> Process 2
     int pipe_fd2[2];  // Second pipe: Process 2 -> Process 1
-    pid_t pid;
-    char buffer[BUFFER_SIZE];
-    int word_count_result;
+    pid_t pid; // Process ID
+    char buffer[BUFFER_SIZE]; // Buffer to hold data
+    int word_count_result; // Variable to hold word count result
 
     // Create the first pipe
     if (pipe(pipe_fd) == -1) {
@@ -52,12 +52,11 @@ void process_communication(const char *filename) {
         printf("(process_communications.c): Process 2 finishes receiving data from Process 1 ...\n");
 
         // Count the words in the received message using the word_count function
-        printf("(word_count.c): Process 2 is counting words now ...\n");
         int count = word_count(buffer); // Pass the buffer directly to word_count
 
         // Write the word count result to the second pipe
         printf("(process_communications.c): Process 2 is sending the result back to Process 1 ...\n");
-        if (write(pipe_fd2[1], &count, sizeof(count)) == -1) {
+        if (write(pipe_fd2[1], &count, sizeof(count)) == -1) { // write data to the second pipe
             perror("Write to second pipe failed");
             exit(EXIT_FAILURE);
         }
@@ -75,7 +74,7 @@ void process_communication(const char *filename) {
         // Open the input file
         FILE *file = fopen(filename, "r");
         if (file == NULL) {
-            fprintf(stderr, "Error: Unable to open file \"%s\".\n", filename);
+            fprintf(stderr, "Error: Unable to open file \"%s\".\n", filename); // Print error message
 
             // Kill the child process to ensure it doesn't continue running
             kill(pid, SIGKILL);
@@ -90,7 +89,7 @@ void process_communication(const char *filename) {
         int file_is_empty = 1; // Flag to check if the file is empty
         while ((bytes_read = fread(buffer, 1, sizeof(buffer), file)) > 0) {
             file_is_empty = 0; // File is not empty
-            if (write(pipe_fd[1], buffer, bytes_read) == -1) {
+            if (write(pipe_fd[1], buffer, bytes_read) == -1) { // write data to the first pipe
                 perror("Write to first pipe failed");
                 fclose(file);
                 exit(EXIT_FAILURE);
